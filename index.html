@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Python para Inventarios - Portal de Aprendizaje Móvil</title>
+    <!-- Google Fonts: Outfit & Space Grotesk -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+</head>
+<body class="dark-theme">
+    <!-- Background Glow Effects -->
+    <div class="bg-glow bg-glow-1"></div>
+    <div class="bg-glow bg-glow-2"></div>
+
+    <!-- App Container -->
+    <div class="app-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="brand">
+                <div class="brand-logo">
+                    <i class="fa-solid fa-boxes-stacked"></i>
+                </div>
+                <div class="brand-text">
+                    <h1>Python Logístico</h1>
+                    <span>Mentor de Inventarios</span>
+                </div>
+            </div>
+            <div class="user-badge">
+                <i class="fa-solid fa-user-tie"></i>
+                <span>Supervisor</span>
+            </div>
+        </header>
+
+        <!-- Main Content Area -->
+        <main class="app-content">
+            
+            <!-- SECTION 1: INICIO -->
+            <section id="section-inicio" class="content-section active">
+                <div class="welcome-card card">
+                    <div class="card-glow"></div>
+                    <h2>¡Bienvenido a tu Mentor Digital!</h2>
+                    <p>Este portal interactivo está diseñado especialmente para ti, un <strong>Supervisor de Inventarios</strong>. Aquí aprenderás Python paso a paso con analogías del almacén y podrás ejecutar herramientas reales desde tu móvil.</p>
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <i class="fa-solid fa-book-open text-cyan"></i>
+                            <span class="stat-val" id="lessons-progress">0/6</span>
+                            <span class="stat-lbl">Lecciones</span>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-screwdriver-wrench text-emerald"></i>
+                            <span class="stat-val">3</span>
+                            <span class="stat-lbl">Utilidades</span>
+                        </div>
+                        <div class="stat-box">
+                            <i class="fa-solid fa-gauge-high text-amber"></i>
+                            <span class="stat-val">100%</span>
+                            <span class="stat-lbl">Práctico</span>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="section-title"><i class="fa-solid fa-route"></i> Tu Ruta de Aprendizaje</h3>
+                <div class="blocks-grid">
+                    <!-- Bloque 1 -->
+                    <div class="block-card card" onclick="switchTab('lecciones'); selectLesson(0);">
+                        <span class="block-tag tag-cyan">Bloque 1</span>
+                        <h4>Análisis de Inventarios</h4>
+                        <p>Domina Pandas. Cruza reportes físicos vs SAP y limpia registros nulos de forma masiva.</p>
+                        <div class="block-footer">
+                            <span>2 Lecciones</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <!-- Bloque 2 -->
+                    <div class="block-card card" onclick="switchTab('lecciones'); selectLesson(2);">
+                        <span class="block-tag tag-emerald">Bloque 2</span>
+                        <h4>Automatización y Conexiones</h4>
+                        <p>Abre archivos pesados de SAP y conecta tus datos locales con la nube de Supabase.</p>
+                        <div class="block-footer">
+                            <span>2 Lecciones</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                    <!-- Bloque 3 -->
+                    <div class="block-card card" onclick="switchTab('lecciones'); selectLesson(4);">
+                        <span class="block-tag tag-amber">Bloque 3</span>
+                        <h4>Scraping y Utilidades</h4>
+                        <p>Monitorea precios de proveedores automáticamente y descarga videos sin publicidad.</p>
+                        <div class="block-footer">
+                            <span>2 Lecciones</span>
+                            <i class="fa-solid fa-chevron-right"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="concept-quickstart card">
+                    <h3>¿Qué aprenderás hoy?</h3>
+                    <div class="quick-tip">
+                        <i class="fa-solid fa-lightbulb"></i>
+                        <p><strong>¿Qué es una Librería?</strong> Imagina que Python es un obrero. Por defecto tiene herramientas básicas. Si necesita mover una tarima de 2 toneladas, usa un montacargas. Ese montacargas es una librería (como <code>pandas</code> para manejar tablas o <code>supabase</code> para bases de datos).</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 2: LECCIONES -->
+            <section id="section-lecciones" class="content-section">
+                <div class="lessons-layout">
+                    <!-- Lessons List (Mobile Menu) -->
+                    <div class="lessons-sidebar" id="lessons-sidebar">
+                        <div class="sidebar-header">
+                            <h3>Lecciones</h3>
+                        </div>
+                        <div class="lesson-items-list" id="lesson-list">
+                            <!-- Populated by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Lesson Detail View -->
+                    <div class="lesson-detail" id="lesson-detail-container" style="display: none;">
+                        <button class="back-to-list-btn" onclick="toggleSidebar(true)"><i class="fa-solid fa-arrow-left"></i> Volver al listado</button>
+                        <div class="lesson-header-card card">
+                            <span class="lesson-badge" id="lesson-detail-badge">Bloque 1 - Lección 1</span>
+                            <h2 id="lesson-detail-title">Cruce de Inventarios con Pandas</h2>
+                            <p class="lesson-desc" id="lesson-detail-desc">Aprende a cruzar un reporte físico y uno de SAP por SKU.</p>
+                        </div>
+
+                        <!-- Tabs inside lesson -->
+                        <div class="lesson-tabs">
+                            <button class="lesson-tab-btn active" onclick="switchLessonTab('analogia')"><i class="fa-solid fa-warehouse"></i> Analogía</button>
+                            <button class="lesson-tab-btn" onclick="switchLessonTab('codigo')"><i class="fa-solid fa-code"></i> Código</button>
+                            <button class="lesson-tab-btn" onclick="switchLessonTab('simulador')"><i class="fa-solid fa-terminal"></i> Simulador</button>
+                        </div>
+
+                        <!-- Tab: Analoga -->
+                        <div id="lesson-tab-analogia" class="lesson-tab-content active card">
+                            <div class="analogy-visual" id="lesson-detail-visual">
+                                <!-- Interactive visual container -->
+                            </div>
+                            <div class="analogy-text" id="lesson-detail-analogy-text">
+                                <!-- Analogy paragraphs -->
+                            </div>
+                        </div>
+
+                        <!-- Tab: Codigo -->
+                        <div id="lesson-tab-codigo" class="lesson-tab-content card">
+                            <div class="code-header">
+                                <span>Código en Python</span>
+                                <button class="copy-btn" onclick="copyLessonCode()"><i class="fa-solid fa-copy"></i> Copiar</button>
+                            </div>
+                            <pre><code id="lesson-detail-code"># El código cargará aquí...</code></pre>
+                            <div class="code-explanation">
+                                <h4>Explicación de líneas clave:</h4>
+                                <ul id="lesson-detail-explanation">
+                                    <!-- Explanations populated by JS -->
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Tab: Simulador -->
+                        <div id="lesson-tab-simulador" class="lesson-tab-content card">
+                            <p class="sim-instructions">Presiona el botón para simular cómo corre este script en Python y ver sus salidas en tiempo real.</p>
+                            <button class="run-btn" id="run-simulation-btn" onclick="runSimulation()"><i class="fa-solid fa-play"></i> Ejecutar Script Python</button>
+                            
+                            <div class="console-box">
+                                <div class="console-header">
+                                    <div class="dots">
+                                        <span class="dot-red"></span>
+                                        <span class="dot-yellow"></span>
+                                        <span class="dot-green"></span>
+                                    </div>
+                                    <span>consola_python.exe</span>
+                                </div>
+                                <div class="console-body" id="console-output">
+                                    <span class="console-placeholder">Esperando ejecución...</span>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Simulation UI -->
+                            <div class="sim-visual-output" id="sim-visual-output-container">
+                                <!-- Visual animation of data being crossed, scraped, etc. -->
+                            </div>
+                        </div>
+
+                        <div class="lesson-footer-nav">
+                            <button class="btn-secondary" id="prev-lesson-btn" onclick="navigateLesson(-1)"><i class="fa-solid fa-chevron-left"></i> Anterior</button>
+                            <button class="btn-primary" id="next-lesson-btn" onclick="navigateLesson(1)">Siguiente <i class="fa-solid fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 3: UTILITIES -->
+            <section id="section-herramientas" class="content-section">
+                <div class="utility-intro card">
+                    <h2><i class="fa-solid fa-screwdriver-wrench text-emerald"></i> Herramientas de Inventario Reales</h2>
+                    <p>Aunque estas herramientas están escritas en Javascript para correr directamente en tu navegador móvil, realizan **exactamente la misma lógica lógica de Pandas** que harás en Python.</p>
+                </div>
+
+                <!-- Accordion/Selector of utilities -->
+                <div class="utility-tabs">
+                    <button class="util-tab-btn active" onclick="switchUtility('cruce')"><i class="fa-solid fa-shuffle"></i> Cruce de Reportes</button>
+                    <button class="util-tab-btn" onclick="switchUtility('limpiador')"><i class="fa-solid fa-filter"></i> Limpiador de SKU</button>
+                    <button class="util-tab-btn" onclick="switchUtility('supabase')"><i class="fa-solid fa-cloud"></i> Supabase Sync</button>
+                </div>
+
+                <!-- Utility 1: Cruce de Reportes -->
+                <div id="util-cruce" class="util-content active card">
+                    <h3>Cruce de Stock (Físico vs SAP)</h3>
+                    <p class="util-desc">Sube o carga los archivos de stock del sistema SAP y de tu inventario físico para cruzarlos por SKU y detectar descuadres automáticamente.</p>
+                    
+                    <div class="mock-data-helper">
+                        <button class="btn-secondary btn-sm" onclick="loadMockCsvData()"><i class="fa-solid fa-magic"></i> Cargar datos de prueba de almacén</button>
+                    </div>
+
+                    <div class="csv-upload-grid">
+                        <div class="upload-box">
+                            <label><i class="fa-solid fa-desktop"></i> Reporte SAP (CSV)</label>
+                            <textarea id="csv-sap-input" placeholder="SKU,Cantidad_sap&#10;SKU001,100&#10;SKU002,45&#10;SKU003,12"></textarea>
+                        </div>
+                        <div class="upload-box">
+                            <label><i class="fa-solid fa-clipboard-check"></i> Reporte Físico (CSV)</label>
+                            <textarea id="csv-fisico-input" placeholder="SKU,Cantidad_fisico&#10;SKU001,98&#10;SKU002,45&#10;SKU003,15"></textarea>
+                        </div>
+                    </div>
+
+                    <button class="btn-primary btn-block" onclick="processInventoryMerge()"><i class="fa-solid fa-play"></i> Cruzar Inventarios</button>
+
+                    <!-- Results Area -->
+                    <div class="results-area" id="merge-results-container" style="display: none;">
+                        <div class="results-header">
+                            <h4><i class="fa-solid fa-chart-simple"></i> Reporte de Discrepancias Generado</h4>
+                            <button class="btn-secondary btn-sm" onclick="downloadMergeResults()"><i class="fa-solid fa-download"></i> Descargar CSV</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="merge-results-table">
+                                <thead>
+                                    <tr>
+                                        <th>SKU</th>
+                                        <th>Stock SAP</th>
+                                        <th>Stock Físico</th>
+                                        <th>Diferencia</th>
+                                        <th>Estado</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Utility 2: Limpiador de SKU -->
+                <div id="util-limpiador" class="util-content card">
+                    <h3>Limpieza de SKU y Nulos</h3>
+                    <p class="util-desc">Limpia reportes sucios: elimina filas sin SKU, rellena cantidades nulas con 0, y estandariza los códigos en mayúsculas.</p>
+                    
+                    <div class="mock-data-helper">
+                        <button class="btn-secondary btn-sm" onclick="loadMockDirtyData()"><i class="fa-solid fa-magic"></i> Cargar reporte sucio de prueba</button>
+                    </div>
+
+                    <div class="upload-box">
+                        <label><i class="fa-solid fa-file-csv"></i> Reporte Sucio</label>
+                        <textarea id="csv-dirty-input" placeholder="SKU,Cantidad,Ubicacion&#10;,50,Rack A&#10;sku001,,Rack B&#10;SKU002,23,&#10;   sku003  ,10,Rack C"></textarea>
+                    </div>
+
+                    <button class="btn-primary btn-block" onclick="processCleanData()"><i class="fa-solid fa-broom"></i> Limpiar Reporte</button>
+
+                    <div class="results-area" id="clean-results-container" style="display: none;">
+                        <div class="results-header">
+                            <h4><i class="fa-solid fa-check-double"></i> Reporte Limpio</h4>
+                            <button class="btn-secondary btn-sm" onclick="downloadCleanResults()"><i class="fa-solid fa-download"></i> Descargar CSV</button>
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table" id="clean-results-table">
+                                <thead>
+                                    <tr>
+                                        <th>SKU</th>
+                                        <th>Cantidad</th>
+                                        <th>Ubicación</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Utility 3: Supabase Sync -->
+                <div id="util-supabase" class="util-content card">
+                    <h3>Sincronización con Supabase</h3>
+                    <p class="util-desc">Conecta los descuadres del inventario directamente a una base de datos de Supabase en la nube para que tu aplicación de AppSheet los consuma en tiempo real.</p>
+                    
+                    <div class="supabase-config-form">
+                        <div class="form-group">
+                            <label>Supabase URL Project</label>
+                            <input type="text" id="sb-url" placeholder="https://tu-proyecto.supabase.co" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label>Supabase API Key (Anon / Service)</label>
+                            <input type="password" id="sb-key" placeholder="tu-api-key-secreta" class="form-control">
+                        </div>
+                    </div>
+
+                    <button class="btn-primary btn-block" onclick="syncWithSupabase()"><i class="fa-solid fa-cloud-arrow-up"></i> Sincronizar discrepancias con Supabase</button>
+                    
+                    <div class="sb-console-box" id="sb-log" style="display: none;">
+                        <label>Logs de Conexión:</label>
+                        <pre id="sb-log-output"></pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SECTION 4: GUIA MOVILES -->
+            <section id="section-guia" class="content-section">
+                <div class="guide-card card">
+                    <h2><i class="fa-solid fa-mobile-screen-button text-cyan"></i> Cómo usar Python en tu Móvil</h2>
+                    <p>No necesitas estar frente a tu PC para escribir y correr scripts de Python. Aquí tienes el manual paso a paso para configurar tu entorno móvil.</p>
+                </div>
+
+                <div class="mobile-tabs">
+                    <button class="mob-tab-btn active" onclick="switchGuide('android')"><i class="fa-brands fa-android"></i> Android (Pydroid 3)</button>
+                    <button class="mob-tab-btn" onclick="switchGuide('ios')"><i class="fa-brands fa-apple"></i> iOS (Pythonista / Pyto)</button>
+                </div>
+
+                <div id="guide-android" class="guide-content active">
+                    <div class="step-card card">
+                        <span class="step-num">1</span>
+                        <h4>Descarga la aplicación</h4>
+                        <p>Busca e instala **Pydroid 3 - IDE for Python 3** en Google Play Store. Es gratuita y la más estable para Android.</p>
+                    </div>
+                    <div class="step-card card">
+                        <span class="step-num">2</span>
+                        <h4>Instala las Librerías (Montacargas)</h4>
+                        <p>Abre Pydroid 3, ve al menú lateral (tres líneas) y selecciona **Pip**. En la pestaña "Quick install", puedes instalar **pandas** haciendo clic en su botón correspondiente, o escribir <code>supabase</code> o <code>beautifulsoup4</code> en la pestaña "Library name" e instalar.</p>
+                    </div>
+                    <div class="step-card card">
+                        <span class="step-num">3</span>
+                        <h4>Escribe y Corre tu Código</h4>
+                        <p>Copia cualquier código del portal, pégalo en el editor de Pydroid 3 y haz clic en el botón amarillo de **Play** (esquina inferior derecha). Verás la consola ejecutando el script al instante en tu celular.</p>
+                    </div>
+                </div>
+
+                <div id="guide-ios" class="guide-content">
+                    <div class="step-card card">
+                        <span class="step-num">1</span>
+                        <h4>Descarga la aplicación</h4>
+                        <p>Descarga **Pythonista 3** (pago) o **Pyto - Python 3** (gratuito con funciones premium) en la App Store de iOS.</p>
+                    </div>
+                    <div class="step-card card">
+                        <span class="step-num">2</span>
+                        <h4>Instalar Librerías en Pyto</h4>
+                        <p>En Pyto, tienes una terminal integrada donde puedes escribir <code>pip install pandas</code> o <code>pip install supabase</code> directamente para agregar tus herramientas de inventario.</p>
+                    </div>
+                    <div class="step-card card">
+                        <span class="step-num">3</span>
+                        <h4>Carga tus archivos locales</h4>
+                        <p>Guarda tus reportes CSV en la aplicación "Archivos" de tu iPhone en la carpeta correspondiente a Pyto o Pythonista para que el código los pueda leer usando <code>pd.read_csv("reporte.csv")</code>.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Bottom Navigation Bar (Thumb-optimized for mobile) -->
+        <nav class="app-navbar">
+            <button class="nav-item active" onclick="switchTab('inicio')" id="nav-inicio">
+                <i class="fa-solid fa-house"></i>
+                <span>Inicio</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('lecciones')" id="nav-lecciones">
+                <i class="fa-solid fa-graduation-cap"></i>
+                <span>Lecciones</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('herramientas')" id="nav-herramientas">
+                <i class="fa-solid fa-toolbox"></i>
+                <span>Herramientas</span>
+            </button>
+            <button class="nav-item" onclick="switchTab('guia')" id="nav-guia">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <span>Guía Móvil</span>
+            </button>
+        </nav>
+    </div>
+
+    <!-- Notification Toast -->
+    <div id="toast" class="toast">Código copiado con éxito</div>
+
+    <script src="app.js"></script>
+</body>
+</html>
